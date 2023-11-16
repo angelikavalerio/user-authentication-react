@@ -1,0 +1,13 @@
+@import './fonts.css';
+
+.valid {
+  border-bottom: 3px solid #2ecc71 !important;
+}
+
+.invalid {
+  border-bottom: 3px solid #e67e22 !important;
+}
+
+.hidden {
+  display: none;
+}
