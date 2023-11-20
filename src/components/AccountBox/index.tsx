@@ -53,7 +53,7 @@ export default () => {
     {
       fieldName: 'firstName',
       ref: 'firstName',
-      placeholder: 'Enter yousr first name',
+      placeholder: 'Enter your first name',
       errorMessage: 'The input is invalid!',
       col: true
     },
@@ -142,7 +142,7 @@ export default () => {
       {
         isSignup ? (
           <>
-            <Form formData={formData} setFormData={setFormData} formDetails={signupFormDetails} buttonText='Sign me up' />
+            <Form setFormData={setFormData} formDetails={signupFormDetails} buttonText='Sign me up' />
             <Marginer $margin="1rem" />
             <MutedLink>
               Already have an account?&nbsp;
@@ -153,7 +153,7 @@ export default () => {
           </>
         ) : (
           <>
-            <Form formData={formData} setFormData={setFormData} formDetails={loginFormDetails} buttonText='Log me in' />
+            <Form setFormData={setFormData} formDetails={loginFormDetails} buttonText='Log me in' />
             <Marginer $margin="1rem" />
             <MutedLink>
               Don't have an account?&nbsp;

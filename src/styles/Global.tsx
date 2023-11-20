@@ -58,7 +58,7 @@ export const Input = styled.input`
   transition: border-bottom .1s;
 
   &:focus {
-    border-bottom: 3px solid ${({ theme }) => theme.colors.primary};
+    border-bottom: 3px solid ${({ theme }) => theme.colors.yellow};
   }
 `
 
@@ -127,7 +127,6 @@ export const Button = styled.button`
   &:focus {
     transform: translateY(0);
   }
-
 `
 
 export const Tooltip = styled.span`

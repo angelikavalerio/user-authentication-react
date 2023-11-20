@@ -3,22 +3,13 @@ import { SingleGrid, Tooltip } from "../../styles/Global";
 import { flexColumnMixin } from "../../styles/Mixins";
 import PasswordInput from "../PasswordInput";
 import { Input, TwoColInput, MutedLink, ActiveLink, Button } from "../../styles/Global";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 const FormContainer = styled.div`
   ${flexColumnMixin}
   justify-content: center;
   gap: 1rem;
 `
-
-interface Form {
-  firstName?: string,
-  lastName?: string,
-  username?: string,
-  email: string,
-  password: string
-}
-
 interface FormDetails {
   fieldName: string,
   ref: string,
@@ -28,7 +19,16 @@ interface FormDetails {
   col?: boolean
 }
 
-export default ({ formData, setFormData, formDetails, buttonText }: { formData: Form, setFormData: Function, formDetails: FormDetails[], buttonText: string }) => {
+export default ({ setFormData, formDetails, buttonText }: { setFormData: Function, formDetails: FormDetails[], buttonText: string }) => {
+  useEffect(() => {
+    formDetails.map((item: any) => {
+      return setFormValues({
+        name: item.fieldName,
+        value: ''
+      })
+    })
+  }, []);
+
   const formReducer = (state: any, event: any) => {
     return {
       ...state,
@@ -38,11 +38,45 @@ export default ({ formData, setFormData, formDetails, buttonText }: { formData: 
 
   const [formValues, setFormValues] = useReducer(formReducer, {})
 
+  const checkForNulls = () => {
+    const nullsFound = Object.values(formValues).filter(value => {
+      return value == ''
+    })
+    if (nullsFound.length) {
+      return false
+    }
+    return true
+  }
+
   const onSetFormData = () => {
-    setFormData(formValues)
+    if (checkForNulls()) {
+      setFormData(formValues)
+      console.log(formValues)
+    }
+  }
+
+  const validate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === '') return e.target.classList.remove('invalid', 'valid')
+    const reg = mapper[e.target.type].reg
+    e.target.classList.toggle('valid', reg.test(e.target.value))
+    e.target.classList.toggle('invalid', !reg.test(e.target.value))
+
+  }
+
+  const mapper: Record<any, any> = {
+    'email': {
+      reg: /[\w]@[\w+]+[.][\w+]/
+    },
+    'text': {
+      reg: /[A-Za-z ]/
+    },
+    'password': {
+      reg: /^\S+$/
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    validate(e)
     setFormValues({
       name: e.target.name,
       value: e.target.value
