@@ -58,7 +58,7 @@ export const Input = styled.input`
   transition: border-bottom .1s;
 
   &:focus {
-    border-bottom: 3px solid ${({ theme }) => theme.colors.warning};
+    border-bottom: 3px solid ${({ theme }) => theme.colors.primary};
   }
 `
 

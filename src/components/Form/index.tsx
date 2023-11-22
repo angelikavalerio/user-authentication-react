@@ -54,7 +54,7 @@ export default ({ setFormData, formDetails, buttonText }: InputProps) => {
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    validate(e)
+
     setFormValues({
       name: e.target.name,
       value: e.target.value
