@@ -121,7 +121,7 @@ export const Button = styled.button`
 
   &:hover {
     background-position: -36rem;
-    transform: translateY(-1px);
+    transform: translateY(-3px);
   }
 
   &:focus {
