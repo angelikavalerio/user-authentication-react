@@ -58,7 +58,7 @@ export const Input = styled.input`
   transition: border-bottom .1s;
 
   &:focus {
-    border-bottom: 3px solid ${({ theme }) => theme.colors.yellow};
+    border-bottom: 3px solid ${({ theme }) => theme.colors.warning};
   }
 `
 
@@ -81,20 +81,20 @@ export const ActiveLink = styled(MutedLink)`
 export const BoxContainer = styled.div`
   max-width: 40rem;
   width: 100%;
-  min-height: 57rem;
-  margin-top: 20rem;
+  margin: auto 0;
   background: #fff;
   box-shadow: 0 0 2px rgb(16, 16, 16, 0.4);
   border-radius: 1.2rem;
   position: relative;
   overflow: hidden;
-  padding: 0 2rem;
+  padding: 0 2rem 7rem 2rem;
 `
 export const TopContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
   height: 15rem;
+
 `
 
 export const HeadingText = styled.h2`
@@ -129,13 +129,12 @@ export const Button = styled.button`
   }
 `
 
-export const Tooltip = styled.span`
-  margin: 0;
+export const ErrorLabel = styled.label`
   padding: 5px;
-  position: absolute;
-  right: 0;
-  bottom: -2px;
-  background: white;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 2rem;
+  border-left: 3px solid;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-color: ${({ theme }) => theme.colors.danger.border};
+  background: ${({ theme }) => theme.colors.danger.background};
+  color: ${({ theme }) => theme.colors.danger.text};
 `

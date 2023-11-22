@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
 import styled from "styled-components"
+import { SingleGrid } from "../../styles/Global";
 import { Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../../styles/Global"
 import { useState } from 'react'
 import Form from '../Form'
+import Input from '../Input'
 
 const Backdrop = styled(motion.div)`
   position: absolute;
@@ -61,14 +63,12 @@ export default () => {
       fieldName: 'lastName',
       ref: 'lastName',
       placeholder: 'Enter your last name',
-      errorMessage: 'The input is invalid!',
       col: true
     },
     {
       fieldName: 'username',
       ref: 'username',
       placeholder: 'Create your username',
-      errorMessage: 'The input is invalid!',
     },
     {
       fieldName: 'email',
@@ -142,7 +142,9 @@ export default () => {
       {
         isSignup ? (
           <>
-            <Form setFormData={setFormData} formDetails={signupFormDetails} buttonText='Sign me up' />
+            <Form setFormData={setFormData} formDetails={signupFormDetails} buttonText='Sign me up'>
+
+            </Form>
             <Marginer $margin="1rem" />
             <MutedLink>
               Already have an account?&nbsp;

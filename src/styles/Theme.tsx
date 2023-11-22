@@ -4,7 +4,12 @@ export const theme: DefaultTheme = {
   colors: {
     primary: '#2ecc71',
     secondary: '#259f59',
-    yellow: '#f1c40f',
+    warning: '#f1c40f',
+    danger: {
+      border: '#e74c3c',
+      background: '#e8c6c3',
+      text: '#5e211a'
+    },
     disabled: '#a2a2a2',
     shadow: 'rgb(16, 16, 16, 0.4)',
     darkGray: '#a2a2a2',

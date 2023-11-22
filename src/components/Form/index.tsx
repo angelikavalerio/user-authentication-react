@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { SingleGrid, Tooltip } from "../../styles/Global";
+import { SingleGrid, Button } from "../../styles/Global";
+import Input from "../Input";
+import { validationMapper, validate } from "../../utils/formValidation";
 import { flexColumnMixin } from "../../styles/Mixins";
-import PasswordInput from "../PasswordInput";
-import { Input, TwoColInput, MutedLink, ActiveLink, Button } from "../../styles/Global";
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, ReactNode } from "react";
+import { FormProvider, useForm } from 'react-hook-form'
 
 const FormContainer = styled.div`
   ${flexColumnMixin}
@@ -19,7 +20,14 @@ interface FormDetails {
   col?: boolean
 }
 
-export default ({ setFormData, formDetails, buttonText }: { setFormData: Function, formDetails: FormDetails[], buttonText: string }) => {
+type InputProps = {
+  setFormData: Function
+  formDetails: FormDetails[]
+  buttonText: string
+  children?: ReactNode
+}
+
+export default ({ setFormData, formDetails, buttonText }: InputProps) => {
   useEffect(() => {
     formDetails.map((item: any) => {
       return setFormValues({
@@ -28,6 +36,8 @@ export default ({ setFormData, formDetails, buttonText }: { setFormData: Functio
       })
     })
   }, []);
+
+  const methods = useForm()
 
   const formReducer = (state: any, event: any) => {
     return {
@@ -38,42 +48,10 @@ export default ({ setFormData, formDetails, buttonText }: { setFormData: Functio
 
   const [formValues, setFormValues] = useReducer(formReducer, {})
 
-  const checkForNulls = () => {
-    const nullsFound = Object.values(formValues).filter(value => {
-      return value == ''
-    })
-    if (nullsFound.length) {
-      return false
-    }
-    return true
-  }
+  const onSubmit = methods.handleSubmit(data => {
+    console.log(data)
+  })
 
-  const onSetFormData = () => {
-    if (checkForNulls()) {
-      setFormData(formValues)
-      console.log(formValues)
-    }
-  }
-
-  const validate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '') return e.target.classList.remove('invalid', 'valid')
-    const reg = mapper[e.target.type].reg
-    e.target.classList.toggle('valid', reg.test(e.target.value))
-    e.target.classList.toggle('invalid', !reg.test(e.target.value))
-
-  }
-
-  const mapper: Record<any, any> = {
-    'email': {
-      reg: /[\w]@[\w+]+[.][\w+]/
-    },
-    'text': {
-      reg: /[A-Za-z ]/
-    },
-    'password': {
-      reg: /^\S+$/
-    }
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     validate(e)
@@ -84,27 +62,38 @@ export default ({ setFormData, formDetails, buttonText }: { setFormData: Functio
   }
 
   return (
-    <FormContainer>
-      <SingleGrid>
+    <FormProvider {...methods}>
+      <FormContainer
+        onSubmit={e => e.preventDefault()}
+      >
+        <SingleGrid>
+          {
+            formDetails.map((item, i) => {
+              if (item.col) {
+                return <Input placeholder={item.placeholder} type={item.type ? item.type : 'text'} validation={validationMapper[item.type ?? 'text'].validation} id={item.fieldName} key={i} onHandleChange={handleChange} />
+              }
+            })
+          }
+        </SingleGrid>
         {
           formDetails.map((item, i) => {
-            if (item.col) {
-              return <TwoColInput placeholder={item.placeholder} name={item.fieldName} key={i} onInput={handleChange} />
+            if (!item.col) {
+              return (
+                <Input
+                  id={item.fieldName}
+                  validation={validationMapper[item.type ?? 'text'].validation}
+                  placeholder={item.placeholder}
+                  type={item.type ? item.type : 'text'}
+                  onHandleChange={handleChange}
+                  key={item.fieldName}
+                />
+              )
             }
           })
         }
-      </SingleGrid>
-      {
-        formDetails.map((item, i) => {
-          if (item.type === 'password') {
-            return <PasswordInput placeholder={item.placeholder} name={item.fieldName} key={i} onHandleChange={handleChange} />
-          }
-          if (!item.col) {
-            return <Input placeholder={item.placeholder} name={item.fieldName} type={item.type ? item.type : 'text'} key={i} onInput={handleChange} />
-          }
-        })
-      }
-      <Button onClick={onSetFormData}>{buttonText}</Button>
-    </FormContainer >
+        <Button onClick={onSubmit}>{buttonText}</Button>
+      </FormContainer>
+    </FormProvider>
   )
 }
+
