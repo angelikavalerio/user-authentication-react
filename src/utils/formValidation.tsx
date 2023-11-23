@@ -1,13 +1,3 @@
-export const checkForNulls = ({ form }: { form: Record<string, any> }) => {
-  const nullsFound = Object.values(form).filter(value => {
-    return value == ''
-  })
-  if (nullsFound.length) {
-    return false
-  }
-  return true
-}
-
 export const validationMapper: Record<any, any> = {
   email: {
     validation: {
@@ -49,13 +39,6 @@ export const validationMapper: Record<any, any> = {
     },
     reg: /^\S+$/
   }
-}
-
-export const validate = (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (e.target.value === '') return e.target.classList.remove('invalid', 'valid')
-  const reg = validationMapper[e.target.type].reg
-  e.target.classList.toggle('valid', reg.test(e.target.value))
-  e.target.classList.toggle('invalid', !reg.test(e.target.value))
 }
 
 export const findInputErrors = (errors: any, id: string) => {
