@@ -1,17 +1,6 @@
-import { motion } from 'framer-motion'
-import styled from "styled-components"
-import { Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../../styles/Global"
+import { Backdrop, Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../../styles/Global"
 import { useState } from 'react'
 import Form from '../Form'
-
-const Backdrop = styled(motion.div)`
-  position: absolute;
-  bottom: -50%;
-  right: -50%;
-  border-radius: 100%;
-  background: linear-gradient(162deg, rgba(46,204,113,1) 35%, rgba(37,159,89,1) 100%);
-  z-index: 9999;
-`
 
 const backdropVariants = {
   expanded: {
@@ -54,35 +43,30 @@ export default () => {
       fieldName: 'firstName',
       ref: 'firstName',
       placeholder: 'Enter your first name',
-      errorMessage: 'The input is invalid!',
       col: true
     },
     {
       fieldName: 'lastName',
       ref: 'lastName',
       placeholder: 'Enter your last name',
-      errorMessage: 'The input is invalid!',
       col: true
     },
     {
       fieldName: 'username',
       ref: 'username',
       placeholder: 'Create your username',
-      errorMessage: 'The input is invalid!',
     },
     {
       fieldName: 'email',
       ref: 'email',
       type: 'email',
       placeholder: 'Enter your email',
-      errorMessage: 'The input is invalid!',
     },
     {
       fieldName: 'password',
       ref: 'password',
       type: 'password',
       placeholder: 'Create your password',
-      errorMessage: 'The input is invalid!',
     }
   ]
 
@@ -91,15 +75,13 @@ export default () => {
       fieldName: 'email',
       ref: 'email',
       type: 'email',
-      placeholder: 'Enter your email',
-      errorMessage: 'The input is invalid!',
+      placeholder: 'Enter your email'
     },
     {
       fieldName: 'password',
       ref: 'password',
       type: 'password',
-      placeholder: 'Create your password',
-      errorMessage: 'The input is invalid!',
+      placeholder: 'Create your password'
     }
   ]
 
@@ -142,7 +124,9 @@ export default () => {
       {
         isSignup ? (
           <>
-            <Form setFormData={setFormData} formDetails={signupFormDetails} buttonText='Sign me up' />
+            <Form resetTrigger={isSignup} formDetails={signupFormDetails} buttonText='Sign me up'>
+
+            </Form>
             <Marginer $margin="1rem" />
             <MutedLink>
               Already have an account?&nbsp;
@@ -153,7 +137,7 @@ export default () => {
           </>
         ) : (
           <>
-            <Form setFormData={setFormData} formDetails={loginFormDetails} buttonText='Log me in' />
+            <Form resetTrigger={isSignup} formDetails={loginFormDetails} buttonText='Log me in' />
             <Marginer $margin="1rem" />
             <MutedLink>
               Don't have an account?&nbsp;

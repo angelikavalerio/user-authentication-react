@@ -1,5 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
 import { flexColumnMixin } from './Mixins'
+import { motion } from 'framer-motion'
+
 export const GlobalStyles = createGlobalStyle`
   *,
   *::before,
@@ -31,6 +33,17 @@ export const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.colors.background};
   }
 `
+
+/* ANIMATION */
+export const Backdrop = styled(motion.div)`
+  position: absolute;
+  bottom: -50%;
+  right: -50%;
+  border-radius: 100%;
+  background: linear-gradient(162deg, rgba(46,204,113,1) 35%, rgba(37,159,89,1) 100%);
+  z-index: 9999;
+`
+
 /* LAYOUT */
 
 export const CenterChildElement = styled.div`
@@ -38,64 +51,32 @@ export const CenterChildElement = styled.div`
   ${flexColumnMixin}
 `
 
-export const Marginer = styled.div<{ $margin?: string }>`
-  margin-bottom: ${props => props.$margin}
-`
-
-export const SingleGrid = styled.div`
-  display: flex;
-  gap: 1rem;
-`
-
-/* HTML ELEMENTS */
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 1.2rem 1.5rem;
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  transition: border-bottom .1s;
-
-  &:focus {
-    border-bottom: 3px solid ${({ theme }) => theme.colors.yellow};
-  }
-`
-
-export const TwoColInput = styled(Input)`
-  width: 50%;
-  display: inline-block;
-`
-
-export const MutedLink = styled.span`
-  display: inline-block;
-  font-size: ${({ theme }) => theme.fontSizes.sub};
-  line-height: 1rem;
-  color: ${({ theme }) => theme.colors.disabled};
-`
-
-export const ActiveLink = styled(MutedLink)`
-  color: ${({ theme }) => theme.colors.primary};
-  cursor: pointer;
-`
 export const BoxContainer = styled.div`
   max-width: 40rem;
   width: 100%;
-  min-height: 57rem;
-  margin-top: 20rem;
+  margin: auto 0;
+  min-height: 58rem;
   background: #fff;
   box-shadow: 0 0 2px rgb(16, 16, 16, 0.4);
   border-radius: 1.2rem;
   position: relative;
   overflow: hidden;
-  padding: 0 2rem;
+  padding: 0 2rem 7rem 2rem;
 `
 export const TopContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
   height: 15rem;
+
 `
+export const FormContainer = styled.div`
+  ${flexColumnMixin}
+  justify-content: center;
+  gap: 1rem;
+`
+
+/* HTML ELEMENTS */
 
 export const HeadingText = styled.h2`
   font-size: 3rem;
@@ -121,7 +102,7 @@ export const Button = styled.button`
 
   &:hover {
     background-position: -36rem;
-    transform: translateY(-1px);
+    transform: translateY(-3px);
   }
 
   &:focus {
@@ -129,13 +110,47 @@ export const Button = styled.button`
   }
 `
 
-export const Tooltip = styled.span`
-  margin: 0;
+export const ErrorLabel = styled.label`
   padding: 5px;
-  position: absolute;
-  right: 0;
-  bottom: -2px;
-  background: white;
+  border-left: 3px solid;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-color: ${({ theme }) => theme.colors.danger.border};
+  background: ${({ theme }) => theme.colors.danger.background};
+  color: ${({ theme }) => theme.colors.danger.text};
+`
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  outline: none;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 2rem;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  transition: border-bottom .1s;
+
+  &:focus {
+    border-bottom: 3px solid ${({ theme }) => theme.colors.primary};
+  }
+`
+
+export const MutedLink = styled.span`
+  display: inline-block;
+  font-size: ${({ theme }) => theme.fontSizes.sub};
+  line-height: 1rem;
+  color: ${({ theme }) => theme.colors.disabled};
+`
+
+export const ActiveLink = styled(MutedLink)`
+  color: ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
+`
+
+/* UTILS */
+export const Marginer = styled.div<{ $margin?: string }>`
+  margin-bottom: ${props => props.$margin}
+`
+
+export const TwoColGrid = styled.div`
+  display: flex;
+  gap: 1rem;
 `
