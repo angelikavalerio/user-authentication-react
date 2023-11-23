@@ -1,9 +1,8 @@
-import styled from "styled-components";
 import { TwoColGrid, Button } from "../../styles/Global";
 import Input from "../Input";
 import { validationMapper } from "../../utils/formValidation";
 import { FormContainer } from "../../styles/Global";
-import { useEffect, ReactNode } from "react";
+import { useEffect, ReactNode, useReducer } from "react";
 import { FormProvider, useForm } from 'react-hook-form'
 
 
@@ -17,20 +16,22 @@ interface FormDetails {
 
 type InputProps = {
   resetTrigger: boolean
+  retrieveForm: Function
   formDetails: FormDetails[]
   buttonText: string
   children?: ReactNode
 }
 
-export default ({ resetTrigger = false, formDetails, buttonText }: InputProps) => {
+export default ({ resetTrigger = false, retrieveForm, formDetails, buttonText }: InputProps) => {
+  const fieldNames = formDetails.map((item: any) => {
+    return { [item.fieldName]: '' }
+  })
+  const assign = fieldNames.reduce((total, cur) => {
+    return Object.assign(total, cur)
+  })
+
   const methods = useForm({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      username: '',
-      email: '',
-      password: ''
-    }
+    defaultValues: assign
   })
 
   const resetForm = () => {
@@ -42,7 +43,7 @@ export default ({ resetTrigger = false, formDetails, buttonText }: InputProps) =
   }, [resetTrigger]);
 
   const onSubmit = methods.handleSubmit(data => {
-    console.log(data)
+    retrieveForm(data)
   })
 
 

@@ -1,6 +1,7 @@
 import { Backdrop, Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../../styles/Global"
 import { useState } from 'react'
 import Form from '../Form'
+import axios from 'axios'
 
 const backdropVariants = {
   expanded: {
@@ -31,9 +32,6 @@ export default () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const [isSignup, setIsSignup] = useState<boolean>(true)
   const [formData, setFormData] = useState<Form>({
-    firstName: '',
-    lastName: '',
-    username: '',
     email: '',
     password: ''
   })
@@ -94,6 +92,20 @@ export default () => {
     }, expandingTransition.duration * 1000 - 1500)
   }
 
+  const login = (data: Form) => {
+    console.log('data', data)
+    axios.post('http://localhost:8080/auth/login', data)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error))
+  }
+
+  const signup = (data: Form) => {
+    console.log('data', data)
+    axios.post('http://localhost:8080/auth/register', data)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error))
+  }
+
   return (
     <BoxContainer>
       <Backdrop
@@ -124,8 +136,7 @@ export default () => {
       {
         isSignup ? (
           <>
-            <Form resetTrigger={isSignup} formDetails={signupFormDetails} buttonText='Sign me up'>
-
+            <Form resetTrigger={isSignup} retrieveForm={signup} formDetails={signupFormDetails} buttonText='Sign me up'>
             </Form>
             <Marginer $margin="1rem" />
             <MutedLink>
@@ -137,7 +148,7 @@ export default () => {
           </>
         ) : (
           <>
-            <Form resetTrigger={isSignup} formDetails={loginFormDetails} buttonText='Log me in' />
+            <Form resetTrigger={isSignup} retrieveForm={login} formDetails={loginFormDetails} buttonText='Log me in' />
             <Marginer $margin="1rem" />
             <MutedLink>
               Don't have an account?&nbsp;
