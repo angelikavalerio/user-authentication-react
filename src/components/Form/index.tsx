@@ -2,7 +2,7 @@ import { TwoColGrid, Button } from "../../styles/Global";
 import Input from "../Input";
 import { validationMapper } from "../../utils/formValidation";
 import { FormContainer } from "../../styles/Global";
-import { useEffect, ReactNode, useReducer } from "react";
+import { useEffect, ReactNode } from "react";
 import { FormProvider, useForm } from 'react-hook-form'
 
 
@@ -11,6 +11,7 @@ interface FormDetails {
   ref: string,
   type?: string,
   placeholder?: string,
+  default?: any,
   col?: boolean
 }
 
@@ -23,29 +24,30 @@ type InputProps = {
 }
 
 export default ({ resetTrigger = false, retrieveForm, formDetails, buttonText }: InputProps) => {
-  const fieldNames = formDetails.map((item: any) => {
-    return { [item.fieldName]: '' }
-  })
-  const assign = fieldNames.reduce((total, cur) => {
-    return Object.assign(total, cur)
-  })
+  const getFieldNames = () => {
+    const fieldNames = formDetails.map((item: any) => {
+      return { [item.fieldName]: item.default ?? '' }
+    })
 
-  const methods = useForm({
-    defaultValues: assign
-  })
-
-  const resetForm = () => {
-    methods.reset()
+    return fieldNames
   }
 
+  const assignValuesToFieldNames = () => {
+    const assign = getFieldNames().reduce((total, cur) => {
+      return Object.assign(total, cur)
+    })
+    return assign
+  }
+
+  const methods = useForm()
+
   useEffect(() => {
-    resetForm()
+    methods.reset(assignValuesToFieldNames())
   }, [resetTrigger]);
 
   const onSubmit = methods.handleSubmit(data => {
     retrieveForm(data)
   })
-
 
   return (
     <FormProvider {...methods}>

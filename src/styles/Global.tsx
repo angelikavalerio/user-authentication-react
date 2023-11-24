@@ -54,7 +54,7 @@ export const CenterChildElement = styled.div`
 export const BoxContainer = styled.div`
   max-width: 40rem;
   width: 100%;
-  margin: auto 0;
+  margin-top: 20rem;
   min-height: 58rem;
   background: #fff;
   box-shadow: 0 0 2px rgb(16, 16, 16, 0.4);

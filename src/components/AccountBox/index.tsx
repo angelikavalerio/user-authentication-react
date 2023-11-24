@@ -1,7 +1,8 @@
 import { Backdrop, Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../../styles/Global"
 import { useState } from 'react'
 import Form from '../Form'
-import axios from 'axios'
+import axiosConfig from "../../utils/axiosConfig"
+
 
 const backdropVariants = {
   expanded: {
@@ -31,10 +32,6 @@ interface Form {
 export default () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const [isSignup, setIsSignup] = useState<boolean>(true)
-  const [formData, setFormData] = useState<Form>({
-    email: '',
-    password: ''
-  })
 
   const signupFormDetails = [
     {
@@ -58,21 +55,6 @@ export default () => {
       fieldName: 'email',
       ref: 'email',
       type: 'email',
-      placeholder: 'Enter your email',
-    },
-    {
-      fieldName: 'password',
-      ref: 'password',
-      type: 'password',
-      placeholder: 'Create your password',
-    }
-  ]
-
-  const loginFormDetails = [
-    {
-      fieldName: 'email',
-      ref: 'email',
-      type: 'email',
       placeholder: 'Enter your email'
     },
     {
@@ -83,8 +65,24 @@ export default () => {
     }
   ]
 
-  const playBackdropAnimation = () => {
+  const loginFormDetails = [
+    {
+      fieldName: 'email',
+      ref: 'email',
+      type: 'email',
+      placeholder: 'Enter your email',
+      default: 'user@api.com'
+    },
+    {
+      fieldName: 'password',
+      ref: 'password',
+      type: 'password',
+      placeholder: 'Create your password',
+      default: '123'
+    }
+  ]
 
+  const playBackdropAnimation = () => {
     setIsExpanded(true);
     setTimeout(() => {
       setIsExpanded(false)
@@ -94,14 +92,14 @@ export default () => {
 
   const login = (data: Form) => {
     console.log('data', data)
-    axios.post('http://localhost:8080/auth/login', data)
+    axiosConfig.post('http://localhost:8080/auth/login', data)
       .then((response) => console.log(response))
       .catch((error) => console.log(error))
   }
 
   const signup = (data: Form) => {
     console.log('data', data)
-    axios.post('http://localhost:8080/auth/register', data)
+    axiosConfig.post('http://localhost:8080/auth/register', data)
       .then((response) => console.log(response))
       .catch((error) => console.log(error))
   }
