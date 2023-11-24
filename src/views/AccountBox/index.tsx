@@ -1,8 +1,9 @@
 import { Backdrop, Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../../styles/Global"
 import { useState } from 'react'
-import Form from '../Form'
+import { FormFields } from "../../types/auth"
+import Form from '../../components/Form'
 import axiosConfig from "../../utils/axiosConfig"
-
+import { useNavigate } from "react-router-dom";
 
 const backdropVariants = {
   expanded: {
@@ -21,45 +22,34 @@ const expandingTransition = {
   stiffness: 30
 }
 
-interface Form {
-  firstName?: string,
-  lastName?: string,
-  username?: string,
-  email: string,
-  password: string
-}
-
 export default () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
-  const [isSignup, setIsSignup] = useState<boolean>(true)
+  const [isSignup, setIsSignup] = useState<boolean>(false)
+
+  const navigate = useNavigate()
 
   const signupFormDetails = [
     {
       fieldName: 'firstName',
-      ref: 'firstName',
       placeholder: 'Enter your first name',
       col: true
     },
     {
       fieldName: 'lastName',
-      ref: 'lastName',
       placeholder: 'Enter your last name',
       col: true
     },
     {
       fieldName: 'username',
-      ref: 'username',
       placeholder: 'Create your username',
     },
     {
       fieldName: 'email',
-      ref: 'email',
       type: 'email',
       placeholder: 'Enter your email'
     },
     {
       fieldName: 'password',
-      ref: 'password',
       type: 'password',
       placeholder: 'Create your password'
     }
@@ -68,14 +58,12 @@ export default () => {
   const loginFormDetails = [
     {
       fieldName: 'email',
-      ref: 'email',
       type: 'email',
       placeholder: 'Enter your email',
       default: 'user@api.com'
     },
     {
       fieldName: 'password',
-      ref: 'password',
       type: 'password',
       placeholder: 'Create your password',
       default: '123'
@@ -90,18 +78,18 @@ export default () => {
     }, expandingTransition.duration * 1000 - 1500)
   }
 
-  const login = (data: Form) => {
+  const login = (data: FormFields) => {
     console.log('data', data)
     axiosConfig.post('http://localhost:8080/auth/login', data)
       .then((response) => console.log(response))
-      .catch((error) => console.log(error))
+      .catch((error) => navigate('/home'))
   }
 
-  const signup = (data: Form) => {
+  const signup = (data: FormFields) => {
     console.log('data', data)
     axiosConfig.post('http://localhost:8080/auth/register', data)
       .then((response) => console.log(response))
-      .catch((error) => console.log(error))
+      .catch((error) => navigate('/home'))
   }
 
   return (
@@ -140,7 +128,7 @@ export default () => {
             <MutedLink>
               Already have an account?&nbsp;
               <ActiveLink onClick={playBackdropAnimation}>
-                Login
+                Log In
               </ActiveLink>
             </MutedLink>
           </>
@@ -151,7 +139,7 @@ export default () => {
             <MutedLink>
               Don't have an account?&nbsp;
               <ActiveLink onClick={playBackdropAnimation}>
-                Signup
+                Sign Up
               </ActiveLink>
             </MutedLink>
           </>

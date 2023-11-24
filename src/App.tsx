@@ -1,16 +1,25 @@
 import { ThemeProvider } from "styled-components"
 import { theme } from './styles/Theme'
-import AccountBox from "./components/AccountBox"
-import { CenterChildElement, GlobalStyles } from "./styles/Global"
+import { GlobalStyles } from "./styles/Global"
 
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import AccountBox from "./views/AccountBox"
+import Auth from "./pages/Auth"
+import Home from "./pages/Home"
 
 export default () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <CenterChildElement>
-        <AccountBox />
-      </CenterChildElement>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Auth />}>
+            <Route index element={<AccountBox />} />
+            <Route path="home" element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
+

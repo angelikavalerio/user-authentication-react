@@ -3,6 +3,70 @@ import { flexColumnMixin } from './Mixins'
 import { motion } from 'framer-motion'
 
 export const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100;
+    src: url('../assets/fonts/Inter-Thin.ttf') format('ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../assets/fonts/Inter-ExtraLight.ttf') format('ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../assets/fonts/Inter-Light.ttf') format('ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/Inter-Regular.ttf') format('ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../assets/fonts/Inter-Medium.ttf') format('ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../assets/fonts/Inter-SemiBold.ttf') format('ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../assets/fonts/Inter-Bold.ttf') format('ttf');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../assets/fonts/Inter-ExtraBold.ttf') format('ttf');
+    font-display: swap;
+  }
+
   *,
   *::before,
   *::after {
@@ -31,6 +95,18 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     background: ${({ theme }) => theme.colors.background};
+  }
+
+  .valid {
+    border-bottom: 3px solid #2ecc71 !important;
+  }
+  
+  .invalid {
+    border-bottom: 3px solid #e74c3c !important;
+  }
+  
+  .hidden {
+    display: none;
   }
 `
 
@@ -70,7 +146,7 @@ export const TopContainer = styled.div`
   height: 15rem;
 
 `
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   ${flexColumnMixin}
   justify-content: center;
   gap: 1rem;
