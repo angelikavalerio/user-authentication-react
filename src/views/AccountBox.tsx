@@ -1,8 +1,8 @@
-import { Backdrop, Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../../styles/Global"
+import { Backdrop, Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../styles/Global"
 import { useState } from 'react'
-import { FormFields } from "../../types/auth"
-import Form from '../../components/Form'
-import axiosConfig from "../../utils/axiosConfig"
+import { FormFields } from "../types/auth"
+import Form from '../components/Form'
+import axiosConfig from "../utils/axiosConfig"
 import { useNavigate } from "react-router-dom";
 
 const backdropVariants = {
@@ -22,7 +22,7 @@ const expandingTransition = {
   stiffness: 30
 }
 
-export default () => {
+const AccountBox = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
   const [isSignup, setIsSignup] = useState<boolean>(false)
 
@@ -148,3 +148,5 @@ export default () => {
     </BoxContainer>
   )
 }
+
+export default AccountBox

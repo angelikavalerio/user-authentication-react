@@ -3,7 +3,7 @@ import { CenterChildElement } from "../styles/Global"
 
 export default () => {
   return (
-    <CenterChildElement>
+    <CenterChildElement style={{ paddingTop: '40px' }}>
       <Outlet />
     </CenterChildElement>
   )
