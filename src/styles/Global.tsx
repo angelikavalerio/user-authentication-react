@@ -122,23 +122,37 @@ export const Backdrop = styled(motion.div)`
 
 /* LAYOUT */
 
+export const GrayBackdrop = styled.div`
+  background: #000;
+  display: flex;
+  opacity: .4;
+  position: fixed;
+  overflow: hidden;
+  z-index: 99998;
+  width: 100vw;
+  height: 100vh;
+  bottom: 0;
+  right: 0;
+`
+
 export const CenterChildElement = styled.div`
   height: 100vh;
   ${flexColumnMixin}
 `
 
-export const BoxContainer = styled.div`
+export const FormBoxContainer = styled.div`
   max-width: 40rem;
   width: 100%;
-  margin: auto 0;
   min-height: 58rem;
+  margin-top: 4rem;
   background: #fff;
-  box-shadow: 0 0 2px rgb(16, 16, 16, 0.4);
+  box-shadow: 0 0 2px ${({ theme }) => theme.colors.shadow};
   border-radius: 1.2rem;
   position: relative;
   overflow: hidden;
   padding: 0 2rem 7rem 2rem;
 `
+
 export const TopContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -167,6 +181,7 @@ export const SubHeadingText = styled.p`
 `
 export const Button = styled.button`
   padding: 1.2rem 1.5rem;
+  width: 36rem;
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   color: #fff;
@@ -177,12 +192,20 @@ export const Button = styled.button`
   transition: background .4s, transform .1s;
 
   &:hover {
-    background-position: -36rem;
+    background-position: 36rem 0;
     transform: translateY(-3px);
   }
 
   &:focus {
     transform: translateY(0);
+  }
+`
+
+export const ButtonSmall = styled(Button)`
+  max-width: 22rem;
+  &:hover {
+    background-position: 22rem 0;
+    transform: translateY(-3px);
   }
 `
 

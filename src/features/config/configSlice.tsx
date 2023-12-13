@@ -5,14 +5,16 @@ export interface ConfigState {
     authentication: {
         accessToken: string,
         refreshToken: string
-    }
+    },
+    isAuthenticated: boolean
 }
 
 const initialState = {
     authentication: {
         accessToken: '',
         refreshToken: ''
-    }
+    },
+    isAuthenticated: false
 } as ConfigState
 
 export const configSlice = createSlice({
@@ -37,5 +39,6 @@ export const configSlice = createSlice({
 export const { changeAccessToken } = configSlice.actions
 
 export const getAccessToken = (state: RootState) => state.config.authentication.accessToken
+export const selectIsAuthenticated = (state: RootState) => state.config.isAuthenticated
 
 export default configSlice.reducer

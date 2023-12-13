@@ -22,7 +22,9 @@ export const theme: DefaultTheme = {
     Inter: 'Inter'
   },
   fontSizes: {
-    sub: '1.2rem'
+    sub: '1.2rem',
+    p: '1.4rem',
+    header: '1.8rem'
   },
   paddings: {
     container: '0 2rem'

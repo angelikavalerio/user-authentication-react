@@ -1,4 +1,4 @@
-import { Backdrop, Marginer, BoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../styles/Global"
+import { Backdrop, Marginer, FormBoxContainer, TopContainer, HeadingText, SubHeadingText, MutedLink, ActiveLink } from "../styles/Global"
 import { useState } from 'react'
 import { FormFields } from "../types/auth"
 import Form from '../components/Form'
@@ -93,7 +93,7 @@ const AccountBox = () => {
   }
 
   return (
-    <BoxContainer>
+    <FormBoxContainer>
       <Backdrop
         initial={false}
         animate={isExpanded ? "expanded" : "collapsed"}
@@ -145,7 +145,7 @@ const AccountBox = () => {
           </>
         )
       }
-    </BoxContainer>
+    </FormBoxContainer>
   )
 }
 
