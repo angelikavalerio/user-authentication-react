@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
+import { UnknownAction } from 'redux'
+import { ThunkAction } from 'redux-thunk'
 
 export interface TriggerState {
     triggerLoginAlert: boolean
 }
 
 const initialState = {
-    triggerLoginAlert: true
+    triggerLoginAlert: false
 } as TriggerState
 
 export const triggerSlice = createSlice({

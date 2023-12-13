@@ -1,5 +1,6 @@
 import axios from "axios"
 import { store } from "../app/store"
+import { setLoginPrompt } from "../features/triggers/triggerSlice"
 
 const axiosConfig = axios.create({
   baseURL: process.env.BASE_URL
@@ -13,10 +14,12 @@ axiosConfig.interceptors.request.use(function (config) {
   return Promise.reject(error)
 })
 
-axios.interceptors.response.use(function (response) {
+axiosConfig.interceptors.response.use(function (response) {
   return response;
 }, async function (error) {
-  if (error.response.status === 401) console.log('sdfsd')
+  if (error.response.status === 400) {
+    store.dispatch(setLoginPrompt(true))
+  }
   return Promise.reject(error);
 });
 
